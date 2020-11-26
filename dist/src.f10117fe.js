@@ -117,9 +117,52 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/index.ts":[function(require,module,exports) {
-console.log("Hi there!");
-},{}],"../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"src/models/user.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.User = void 0;
+
+var User =
+/** @class */
+function () {
+  function User(data) {
+    this.data = data;
+  }
+
+  User.prototype.get = function (propName) {
+    return this.data[propName];
+  };
+
+  User.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+
+  return User;
+}();
+
+exports.User = User;
+},{}],"src/index.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var user_1 = require("./models/user");
+
+var user = new user_1.User({
+  name: 'Artur',
+  age: 20
+});
+user.set({
+  name: 'Artur Alves Serra'
+});
+console.log(user.get('name'));
+console.log(user.get('age'));
+},{"./models/user":"src/models/user.ts"}],"../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +190,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43619" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35899" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
