@@ -138,6 +138,18 @@ function () {
       _this.model.setRandomAge();
     };
 
+    this.onSetNameClick = function () {
+      var input = _this.parent.querySelector('input');
+
+      if (input) {
+        var name = input.value;
+
+        _this.model.set({
+          name: name
+        });
+      }
+    };
+
     this.bindModel();
   }
 
@@ -151,12 +163,13 @@ function () {
 
   UserForm.prototype.eventsMap = function () {
     return {
-      'click:.set-age': this.onSetAgeClick
+      'click:.set-age': this.onSetAgeClick,
+      'click:.set-name': this.onSetNameClick
     };
   };
 
   UserForm.prototype.template = function () {
-    return "\n            <div>\n                <h1> \n                    User Form\n                </h1>\n\n                <div>\n                    User name: " + this.model.get('name') + "\n                </div>\n\n                <div>\n                    User age: " + this.model.get('age') + "\n                </div>\n\n                <input />\n\n                <button> Click Me! </button>\n                <button class=\"set-age\"> Set Random Age </button>\n            </div>\n        ";
+    return "\n            <div>\n                <h1> \n                    User Form\n                </h1>\n\n                <div>\n                    User name: " + this.model.get('name') + "\n                </div>\n\n                <div>\n                    User age: " + this.model.get('age') + "\n                </div>\n\n                <input />\n\n                <button class=\"set-name\"> Change Name </button>\n                <button class=\"set-age\"> Set Random Age </button>\n            </div>\n        ";
   };
 
   UserForm.prototype.bindEvents = function (fragment) {
@@ -2293,8 +2306,14 @@ var user = User_1.User.buildUser({
   name: 'NAME',
   age: 20
 });
-var userForm = new UserForm_1.UserForm(document.getElementById('root'), user);
-userForm.render();
+var root = document.getElementById('root');
+
+if (root) {
+  var userForm = new UserForm_1.UserForm(root, user);
+  userForm.render();
+} else {
+  throw new Error('Root element not found');
+}
 },{"./views/UserForm":"src/views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2323,7 +2342,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43685" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36031" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
