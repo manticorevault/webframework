@@ -19,6 +19,16 @@
       "name": "new record",
       "age": 2,
       "id": 4
+    },
+    {
+      "name": "NAME",
+      "age": 20,
+      "id": 5
+    },
+    {
+      "name": "Josephine",
+      "age": 20,
+      "id": 6
     }
   ]
 }
