@@ -1,12 +1,21 @@
 import { Model } from '../models/Model'
 
 export abstract class View<T extends Model<K>, K> {
+  regions: { [key: string]: Element } = {}
+
   constructor(public parent: Element, public model: T) {
     this.bindModel()
   }
 
-  abstract eventsMap(): { [key: string]: () => void }
   abstract template(): string
+
+  regionsMap(): { [key: string]: string } {
+    return {}
+  }
+
+  eventsMap(): { [key: string]: () => void } {
+    return {}
+  }
 
   bindModel(): void {
     this.model.on('change', () => {
@@ -26,18 +35,32 @@ export abstract class View<T extends Model<K>, K> {
     }
   }
 
+  mapRegions(fragment: DocumentFragment): void {
+    const regionsMap = this.regionsMap()
+
+    for (let key in regionsMap) {
+      const selector = regionsMap[key]
+      const element = fragment.querySelector(selector)
+
+      if (element) {
+        this.regions[key] = element
+      }
+    }
+  }
+
+  onRender(): void {}
+
   render(): void {
-    // Remove the previous HTML from the parent element
     this.parent.innerHTML = ''
 
-    // Re-render the template
     const templateElement = document.createElement('template')
     templateElement.innerHTML = this.template()
 
-    // Bind the events
     this.bindEvents(templateElement.content)
+    this.mapRegions(templateElement.content)
 
-    // Stick the events to the parent element
+    this.onRender()
+
     this.parent.append(templateElement.content)
   }
 }
